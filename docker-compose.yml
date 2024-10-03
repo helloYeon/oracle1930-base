@@ -1,0 +1,22 @@
+# @format
+
+version: "3"
+
+services:
+  oracle:
+    image: gnom878/oracle19c:latest
+    container_name: ${COMPOSE_PROJECT_NAME}
+    ports:
+      - ${PDB_PORT}:1521
+    volumes:
+      - db-store:/opt/oracle/oradata
+      - ./script/startup:/opt/oracle/scripts/startup
+      - ./script/setup:/opt/oracle/scripts/setup
+    environment:
+      ORACLE_PWD: Helloeyon_test_db
+      PDB_DATABASE: ${PDB_DATABASE}
+      PDB_USERNAME: ${PDB_USERNAME}
+      PDB_PASSWORD: ${PDB_PASSWORD}
+
+volumes:
+  db-store:
